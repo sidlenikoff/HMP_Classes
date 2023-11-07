@@ -37,7 +37,18 @@ namespace HMP_Classes_Task3
                 array[i] = random.Next(MIN_RANDOM_VALUE,MAX_RANDOM_VALUE + 1);
         }
 
-        public void Print() => Console.WriteLine(String.Join(' ', array.Values));
+        public void Print(int startIndex, int endIndex)
+        {
+            try
+            {
+                var range = array.Values.ToList().GetRange(startIndex, endIndex - startIndex + 1);
+                Console.WriteLine(String.Join(' ', range));
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
 
         public int[] FindValue(int value)
         {

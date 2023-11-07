@@ -24,7 +24,9 @@ namespace HMP_Classes_Task3
                 switch(operation)
                 {
                     case "1":
-                        array.Print();
+                        Console.WriteLine("Введите начальный и конечный индексы для вывода: ");
+                        var inp = Console.ReadLine().Split(' ').Select(it => int.Parse(it)).ToArray();
+                        array.Print(inp[0], inp[1]);
                         break;
                     case "2":
                         Console.Write("Введите значение для поиска: ");
