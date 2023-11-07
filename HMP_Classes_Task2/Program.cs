@@ -1,0 +1,40 @@
+﻿using System;
+using System.Text.Json;
+
+namespace HMP_Classes_Task2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Random rnd = new Random();
+            List<Baker> bakers = new List<Baker>() { new Baker(0, 3) };
+
+            List<Courier> couriers = new List<Courier>() { new Courier(1,1,1) };
+
+            List<Order> orders = new List<Order>() { new Order(0, TimeSpan.FromMinutes(120)), new Order(1, TimeSpan.FromMinutes(120)),
+            new Order(2, TimeSpan.FromMinutes(120)), new Order(3, TimeSpan.FromMinutes(120)), new Order(4, TimeSpan.FromMinutes(120))};
+            
+            Pizzeria pizzeria = new Pizzeria(orders, bakers, couriers, 2);
+
+            pizzeria.ProcedureOrders();
+            pizzeria.GetReport();
+
+            /*using (FileStream fs = new FileStream("pizzeria.json", FileMode.OpenOrCreate))
+            {
+                JsonSerializer.Serialize<Pizzeria>(fs, pizzeria);
+                Console.WriteLine("Data has been saved to file");
+            }*/
+
+            /*using (FileStream fs = new FileStream("pizzeria.json", FileMode.OpenOrCreate))
+            {
+                Pizzeria? pizzeria = JsonSerializer.Deserialize<Pizzeria>(fs);
+                if (pizzeria != null)
+                {
+                    pizzeria.ProcedureOrders();
+                    pizzeria.GetReport();
+                }
+            }*/
+        }
+    }
+}
