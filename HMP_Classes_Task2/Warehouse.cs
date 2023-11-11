@@ -27,14 +27,25 @@ namespace HMP_Classes_Task2
             if (ordersInTimeMoment[baker.Time].Count + 1 <= Capacity)
                 for (int i = baker.Time; i < ordersInTimeMoment.Length; i++)
                 {
-                    if(ordersInTimeMoment[i].Count + 1 > Capacity)
-                        ordersInTimeMoment[i].RemoveAt(0);
+                    if (ordersInTimeMoment[i].Count + 1 > Capacity)
+                    {
+                        var bakerToMove = ordersInTimeMoment[i][0].Baker;
+                        if (!bakerToMove.IsInQueueToWarehouse)
+                        {
+                            bakersQueue.Enqueue(bakerToMove, bakerToMove.Time);
+                            bakerToMove.IsInQueueToWarehouse = true;
+                            ordersInTimeMoment[i].RemoveAt(0);
+                        }
+                    }
                     baker.CurrentOrder.SetInQueueToWarehouseTime(0);
                     ordersInTimeMoment[i].Add(baker.CurrentOrder);
                     ordersInTimeMoment[i] = ordersInTimeMoment[i].OrderByDescending(o => o.Baker.Time).ToList();
                 }
             else
+            {
                 bakersQueue.Enqueue(baker, baker.Time);
+                baker.IsInQueueToWarehouse = true;
+            }
         }
 
         public void ProcedureOrdersInQueue()
@@ -72,6 +83,7 @@ namespace HMP_Classes_Task2
                         firstBaker.Time = i;
                         ordersInTimeMoment[i].Add(firstBaker.CurrentOrder);
                         isAnyFreePlaces = true;
+                        firstBaker.IsInQueueToWarehouse = false;
                         bakersQueue.Dequeue();
                         break;
                     }

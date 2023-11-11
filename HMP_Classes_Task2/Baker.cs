@@ -14,6 +14,9 @@ namespace HMP_Classes_Task2
         [JsonIgnore]
         public int Time { get; set; }
 
+        [JsonIgnore]
+        public bool IsInQueueToWarehouse { get; set; }
+
         public Baker(int iD, int performance)
         {
             ID = iD;
