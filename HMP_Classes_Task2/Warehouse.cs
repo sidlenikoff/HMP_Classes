@@ -82,7 +82,8 @@ namespace HMP_Classes_Task2
                     {
                         firstBaker.CurrentOrder.SetInQueueToWarehouseTime(i - firstBaker.Time);
                         firstBaker.Time = i;
-                        ordersInTimeMoment[i].Add(firstBaker.CurrentOrder);
+                        for(int j = i; j < ordersInTimeMoment.Length; j++)
+                            ordersInTimeMoment[j].Add(firstBaker.CurrentOrder);
                         isAnyFreePlaces = true;
                         firstBaker.IsInQueueToWarehouse = false;
                         bakersQueue.Dequeue();

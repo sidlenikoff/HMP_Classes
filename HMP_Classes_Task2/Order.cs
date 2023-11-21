@@ -83,6 +83,7 @@ namespace HMP_Classes_Task2
             }
             else
                 TimeOnStage[status] = time;
+            Status = status;
         }
 
         public override string ToString()

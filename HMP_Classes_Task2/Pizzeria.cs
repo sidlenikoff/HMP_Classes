@@ -33,11 +33,14 @@
                         break;
 
                     var order = Orders[orderIndex++];
-                    order.SetInQueueTime(baker.Time);
-                    baker.Cook(order);
-                    if (baker.Time >= (int)Constants.WorkdayLength.TotalSeconds)
-                        break;
-                    warehouse.ProcedueBaker(baker);
+                    if (order.Status == Constants.OrderStatuses.InQueue && !baker.IsInQueueToWarehouse)
+                    {
+                        order.SetInQueueTime(baker.Time);
+                        baker.Cook(order);
+                        if (baker.Time >= (int)Constants.WorkdayLength.TotalSeconds)
+                            break;
+                        warehouse.ProcedueBaker(baker);
+                    }
                 }
 
                 warehouse.ProcedureOrdersInQueue();
