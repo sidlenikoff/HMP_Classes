@@ -18,7 +18,8 @@ namespace HMP_Classes_Task2
             Capacity = capacity;
             this.couriers = couriers;
             ordersInTimeMoment = new List<Order>[workdayLengthInSeconds];
-            Array.Fill(ordersInTimeMoment, new List<Order>());
+            for (int i = 0; i < ordersInTimeMoment.Length; i++)
+                ordersInTimeMoment[i] = new List<Order>();
             bakersQueue = new PriorityQueue<Baker, int>();
         } 
 
